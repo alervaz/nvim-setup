@@ -59,11 +59,11 @@ require('lspconfig').tsserver.setup({
 --   end
 -- }
 
--- require'lspconfig'.tailwindcss.setup{
---      cmd = { "tailwindcss-language-server", "--stdio" },
---      filetypes = { "html" },
---      root_dir = function() return vim.loop.cwd() end
---    }
+require'lspconfig'.tailwindcss.setup{
+     cmd = { "tailwindcss-language-server", "--stdio" },
+     filetypes = { "html" },
+     root_dir = function() return vim.loop.cwd() end
+   }
 
 cmp.setup({
   sources = { { name = 'nvim_lsp' } },
