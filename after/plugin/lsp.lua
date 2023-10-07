@@ -59,11 +59,11 @@ require('lspconfig').tsserver.setup({
 --   end
 -- }
 
-require'lspconfig'.tailwindcss.setup{
-     cmd = { "tailwindcss-language-server", "--stdio" },
-     filetypes = { "html" },
-     root_dir = function() return vim.loop.cwd() end
-   }
+-- require 'lspconfig'.tailwindcss.setup {
+--   cmd = { "tailwindcss-language-server", "--stdio" },
+--   filetypes = { "html" },
+--   root_dir = function() return vim.loop.cwd() end
+-- }
 
 cmp.setup({
   sources = { { name = 'nvim_lsp' } },
@@ -121,6 +121,17 @@ lsp.on_attach(function(client, bufnr)
     },
   })
 end)
+local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+local lsp_format_on_save = function(bufnr)
+  vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = augroup,
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format()
+    end,
+  })
+end
 
 lsp.format_on_save({
   format_opts = {

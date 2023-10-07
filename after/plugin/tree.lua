@@ -1,132 +1,132 @@
-  require 'nvim-web-devicons'.setup {
-        override_by_extension = {
-          c = {
-            icon = "",
-            name = "c",
-            color = "#005697"
-          },
+require 'nvim-web-devicons'.setup {
+  override_by_extension = {
+    c = {
+      icon = "",
+      name = "c",
+      color = "#005697"
+    },
 
-          css = {
-            icon = "",
-            name = "css",
-            color = "#2862e9"
-          },
+    css = {
+      icon = "",
+      name = "css",
+      color = "#2862e9"
+    },
 
-          deb = {
-            icon = "",
-            name = "deb",
-            color = "#d60048"
-          },
-
-
-          html = {
-            icon = "",
-            name = "html",
-            color = "#e45527"
-          },
-
-          js = {
-            icon = "󰌞",
-            name = "js",
-            color = "#f7e025"
-          },
-
-          kt = {
-            icon = "󱈙",
-            name = "kt",
-            color = "#6a7be2"
-          },
-
-          out = {
-            icon = "",
-            name = "out",
-          },
+    deb = {
+      icon = "",
+      name = "deb",
+      color = "#d60048"
+    },
 
 
-          ["robots.txt"] = {
-            icon = "󰚩",
-            name = "robots",
-            color = "#bf3d35"
-          },
+    html = {
+      icon = "",
+      name = "html",
+      color = "#e45527"
+    },
 
-          ts = {
-            icon = "󰛦",
-            name = "ts",
-            color = "#377cc8"
-          },
+    js = {
+      icon = "󰌞",
+      name = "js",
+      color = "#f7e025"
+    },
 
-          ttf = {
-            icon = "",
-            name = "TrueTypeFont",
-            color = "#c6c8c7"
-          },
+    kt = {
+      icon = "󱈙",
+      name = "kt",
+      color = "#6a7be2"
+    },
 
-          rb = {
-            icon = "",
-            name = "rb",
-            color = "#b21a0a"
-          },
+    out = {
+      icon = "",
+      name = "out",
+    },
 
-          vue = {
-            icon = "󰡄",
-            name = "vue",
-            color = "#47ba87"
-          },
 
-          woff = {
-            icon = "",
-            name = "WebOpenFontFormat",
-            color = "#c6c8c7"
-          },
+    ["robots.txt"] = {
+      icon = "󰚩",
+      name = "robots",
+      color = "#bf3d35"
+    },
 
-          woff2 = {
-            icon = "",
-            name = "WebOpenFontFormat2",
-            color = "#c6c8c7"
-          },
+    ts = {
+      icon = "󰛦",
+      name = "ts",
+      color = "#377cc8"
+    },
 
-          xz = {
-            icon = "",
-            name = "xz",
-            color = "#c6c8c7"
-          },
+    ttf = {
+      icon = "",
+      name = "TrueTypeFont",
+      color = "#c6c8c7"
+    },
 
-          zip = {
-            icon = "",
-            name = "zip",
-            color = "#fee79c"
-          },
-          astro = {
-            icon = "", -- Here you can put any icon you want
-            color = "#ff6209",
-            name = "Astro"
-          },
+    rb = {
+      icon = "",
+      name = "rb",
+      color = "#b21a0a"
+    },
 
-          mod = {
-            icon = "󰟓",
-            color = "#ff5b5b",
-            name = "Gomod"
-          },
+    vue = {
+      icon = "󰡄",
+      name = "vue",
+      color = "#47ba87"
+    },
 
-          sum = {
-            icon = "󰟓",
-            color = "#ff5b5b",
-            name = "Gosum"
-          },
+    woff = {
+      icon = "",
+      name = "WebOpenFontFormat",
+      color = "#c6c8c7"
+    },
 
-          go = {
-            icon = "󰟓",
-            color = "#0fbfce",
-            name = "Go"
-          },
+    woff2 = {
+      icon = "",
+      name = "WebOpenFontFormat2",
+      color = "#c6c8c7"
+    },
 
-          csproj = {
-            icon = "󰗀",
-            color = "#f67c08",
-            name = "Csproj"
-          }
-        }
-      }
+    xz = {
+      icon = "",
+      name = "xz",
+      color = "#c6c8c7"
+    },
+
+    zip = {
+      icon = "",
+      name = "zip",
+      color = "#fee79c"
+    },
+    astro = {
+      icon = "", -- Here you can put any icon you want
+      color = "#ff6209",
+      name = "Astro"
+    },
+
+    mod = {
+      icon = "󰟓",
+      color = "#ff5b5b",
+      name = "Gomod"
+    },
+
+    sum = {
+      icon = "󰟓",
+      color = "#ff5b5b",
+      name = "Gosum"
+    },
+
+    go = {
+      icon = "󰟓",
+      color = "#0fbfce",
+      name = "Go"
+    },
+
+    csproj = {
+      icon = "󰗀",
+      color = "#f67c08",
+      name = "Csproj"
+    }
+  }
+}
 
 
 require("nvim-tree").setup({
@@ -139,6 +139,7 @@ require("nvim-tree").setup({
   },
   filters = {
     dotfiles = false,
+    -- custom = { "git" }
   },
   git = {
     enable = true,

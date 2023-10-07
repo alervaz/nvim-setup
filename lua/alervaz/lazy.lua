@@ -103,5 +103,12 @@ return require('lazy').setup({
   "tpope/vim-dadbod",
   "kristijanhusak/vim-dadbod-ui",
   "kristijanhusak/vim-dadbod-completion",
-  'hrsh7th/cmp-cmdline'
+  'hrsh7th/cmp-cmdline',
+  'navarasu/onedark.nvim',
+  {
+    "nobbmaestro/nvim-andromeda",
+    dependencies = { "tjdevries/colorbuddy.nvim", branch = "dev" }
+  },
+  'Rigellute/shades-of-purple.vim',
+  'joerdav/templ.vim'
 })
