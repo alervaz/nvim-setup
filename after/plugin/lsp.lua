@@ -121,17 +121,17 @@ lsp.on_attach(function(client, bufnr)
     },
   })
 end)
-local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
-local lsp_format_on_save = function(bufnr)
-  vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
-  vim.api.nvim_create_autocmd('BufWritePre', {
-    group = augroup,
-    buffer = bufnr,
-    callback = function()
-      vim.lsp.buf.format()
-    end,
-  })
-end
+-- local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+-- local lsp_format_on_save = function(bufnr)
+--   vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+--   vim.api.nvim_create_autocmd('BufWritePre', {
+--     group = augroup,
+--     buffer = bufnr,
+--     callback = function()
+--       vim.lsp.buf.format()
+--     end,
+--   })
+-- end
 
 lsp.format_on_save({
   format_opts = {
@@ -141,9 +141,9 @@ lsp.format_on_save({
   servers = {
     ['gopls'] = { 'go' },
     ['rust_analyzer'] = { 'rust' },
-    ['typescript-language-server'] = { "typescript" },
-    ['prettier'] = { "jsx" },
-    ['clang-format'] = { "c++", "cpp", "c" }
+    ['tsserver'] = { "typescript", "javascript", "tsx", "jsx", "javascriptreact", "typescriptreact" },
+    -- ['prettier'] = { "jsx" },
+    -- ['clang-format'] = { "c++", "cpp", "c" }
   }
 })
 

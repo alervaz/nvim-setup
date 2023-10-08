@@ -127,8 +127,7 @@ require 'nvim-web-devicons'.setup {
     }
   }
 }
-
-
+vim.g.nvim_tree_ignore = { '.git' }
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
