@@ -32,6 +32,13 @@ lsp.ensure_installed({
   'rust_analyzer',
 })
 
+vim.filetype.add({
+    extension = {
+        templ = "templ",
+    },
+})
+require'lspconfig'.templ.setup{}
+
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -61,9 +68,20 @@ require('lspconfig').tsserver.setup({
 
 -- require 'lspconfig'.tailwindcss.setup {
 --   cmd = { "tailwindcss-language-server", "--stdio" },
---   filetypes = { "html" },
+--   filetypes = { "html", "templ", "go" },
 --   root_dir = function() return vim.loop.cwd() end
 -- }
+require 'lspconfig'.html.setup {
+  cmd = { "vscode-html-language-server", "--stdio" },
+  filetypes = { "html", "templ" },
+  root_dir = function() return vim.loop.cwd() end
+}
+
+require 'lspconfig'.emmet_language_server.setup {
+  cmd = { "emmet-language-server", "--stdio" },
+  filetypes = { "html", "templ" },
+  root_dir = function() return vim.loop.cwd() end
+}
 
 cmp.setup({
   sources = { { name = 'nvim_lsp' } },
@@ -94,10 +112,6 @@ lsp.set_preferences({
   }
 })
 
-lsp.configure('html', {
-  document_formatting = false,
-  document_range_formatting = false,
-})
 
 lsp.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
@@ -142,6 +156,7 @@ lsp.format_on_save({
     ['gopls'] = { 'go' },
     ['rust_analyzer'] = { 'rust' },
     ['tsserver'] = { "typescript", "javascript", "tsx", "jsx", "javascriptreact", "typescriptreact" },
+    ['templ'] = { 'templ' }
     -- ['prettier'] = { "jsx" },
     -- ['clang-format'] = { "c++", "cpp", "c" }
   }

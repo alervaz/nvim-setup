@@ -1,4 +1,3 @@
-
 local treesitter_parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 treesitter_parser_config.templ = {
   install_info = {
@@ -9,6 +8,7 @@ treesitter_parser_config.templ = {
 }
 
 vim.treesitter.language.register('templ', 'templ')
+
 
 require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
@@ -33,5 +33,6 @@ require 'nvim-treesitter.configs'.setup {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = true,
   },
+
 }
 

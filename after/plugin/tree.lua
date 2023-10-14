@@ -124,6 +124,30 @@ require 'nvim-web-devicons'.setup {
       icon = "󰗀",
       color = "#f67c08",
       name = "Csproj"
+    },
+
+    templ = {
+      icon = "󰟓",
+      color = "#ebb61b",
+      name = "templ"
+    },
+
+    ['webpack.config.js'] = {
+      icon = "󰜫",
+      color = "#8ed5fa",
+      name = "webpack"
+    },
+
+    ['tailwind.config.js'] = {
+      icon = "󱏿",
+      color = "#8ed5fa",
+      name = "tailwind"
+    },
+
+    ['postcss.config.js'] = {
+      icon = "󰔷",
+      color = "#d6380a",
+      name = "postcss"
     }
   }
 }
@@ -138,11 +162,11 @@ require("nvim-tree").setup({
   },
   filters = {
     dotfiles = false,
-    -- custom = { "git" }
+    custom = { "^.git$" }
   },
   git = {
     enable = true,
-    ignore = false,
+    ignore = true,
     timeout = 500,
   },
 })

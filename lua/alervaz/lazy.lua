@@ -110,5 +110,6 @@ return require('lazy').setup({
     dependencies = { "tjdevries/colorbuddy.nvim", branch = "dev" }
   },
   'Rigellute/shades-of-purple.vim',
-  'joerdav/templ.vim'
+  'RaafatTurki/hex.nvim',
+  "vrischmann/tree-sitter-templ",
 })
