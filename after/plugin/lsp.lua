@@ -79,7 +79,7 @@ require 'lspconfig'.html.setup {
 
 require 'lspconfig'.emmet_language_server.setup {
   cmd = { "emmet-language-server", "--stdio" },
-  filetypes = { "html", "templ" },
+  filetypes = { "html", "templ", "typescriptreact", "javascriptreact" },
   root_dir = function() return vim.loop.cwd() end
 }
 
@@ -199,4 +199,4 @@ vim.cmd [[function! IndentWithA()
 endfunction
 nnoremap <expr> a IndentWithA()]]
 
---vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"
