@@ -79,7 +79,7 @@ require 'lspconfig'.html.setup {
 
 require 'lspconfig'.emmet_language_server.setup {
   cmd = { "emmet-language-server", "--stdio" },
-  filetypes = { "html", "templ", "typescriptreact", "javascriptreact" },
+  filetypes = { "html", "templ", "typescriptreact", "javascriptreact", "typescript" },
   root_dir = function() return vim.loop.cwd() end
 }
 

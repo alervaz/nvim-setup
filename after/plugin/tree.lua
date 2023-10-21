@@ -148,6 +148,12 @@ require 'nvim-web-devicons'.setup {
       icon = "󰔷",
       color = "#d6380a",
       name = "postcss"
+    },
+
+    ['vite.config.js'] = {
+      icon = "🗲",
+      color = "#f6c322",
+      name = "vite",
     }
   }
 }
