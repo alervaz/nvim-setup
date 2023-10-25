@@ -39,6 +39,12 @@ vim.filetype.add({
 })
 require'lspconfig'.templ.setup{}
 
+require'lspconfig'.sqlls.setup{
+  cmd = {"sql-language-server", "up", "--method", "stdio"};
+  filetypes = {"sql", "mysql"};
+  root_dir = function() return vim.loop.cwd() end;
+}
+
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -66,16 +72,19 @@ require('lspconfig').tsserver.setup({
 --   end
 -- }
 
--- require 'lspconfig'.tailwindcss.setup {
---   cmd = { "tailwindcss-language-server", "--stdio" },
---   filetypes = { "html", "templ", "go" },
---   root_dir = function() return vim.loop.cwd() end
--- }
+require 'lspconfig'.tailwindcss.setup {
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = { "html", "templ", "go" },
+  root_dir = function() return vim.loop.cwd() end
+}
 require 'lspconfig'.html.setup {
   cmd = { "vscode-html-language-server", "--stdio" },
   filetypes = { "html", "templ" },
   root_dir = function() return vim.loop.cwd() end
 }
+
+
+
 
 require 'lspconfig'.emmet_language_server.setup {
   cmd = { "emmet-language-server", "--stdio" },

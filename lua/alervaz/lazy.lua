@@ -112,4 +112,5 @@ return require('lazy').setup({
   'Rigellute/shades-of-purple.vim',
   'RaafatTurki/hex.nvim',
   "vrischmann/tree-sitter-templ",
+  "ThePrimeagen/lsp-debug-tools.nvim"
 })
