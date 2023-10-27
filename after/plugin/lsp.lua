@@ -26,7 +26,11 @@ cmp.setup.cmdline('/', {
   }
 })
 
+
 lsp.preset("recommended")
+
+
+
 
 lsp.ensure_installed({
   'rust_analyzer',
@@ -74,12 +78,12 @@ require('lspconfig').tsserver.setup({
 
 require 'lspconfig'.tailwindcss.setup {
   cmd = { "tailwindcss-language-server", "--stdio" },
-  filetypes = { "html", "templ", "go" },
+  filetypes = { "html", "templ", "go", "heex" },
   root_dir = function() return vim.loop.cwd() end
 }
 require 'lspconfig'.html.setup {
   cmd = { "vscode-html-language-server", "--stdio" },
-  filetypes = { "html", "templ" },
+  filetypes = { "html", "templ", "heex" },
   root_dir = function() return vim.loop.cwd() end
 }
 
@@ -88,7 +92,7 @@ require 'lspconfig'.html.setup {
 
 require 'lspconfig'.emmet_language_server.setup {
   cmd = { "emmet-language-server", "--stdio" },
-  filetypes = { "html", "templ", "typescriptreact", "javascriptreact", "typescript" },
+  filetypes = { "html", "templ", "typescriptreact", "javascriptreact", "typescript", "heex" },
   root_dir = function() return vim.loop.cwd() end
 }
 

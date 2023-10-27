@@ -20,6 +20,31 @@ return require('lazy').setup({
     config = function()
     end
   },
+  {
+    'akinsho/bufferline.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
+  },
+  -- Hop (Better Navigation)
+  {
+    "phaazon/hop.nvim",
+    lazy = true,
+  },
+
+
+  -- Lualine
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
+  },
+  -- Which-key
+  {
+    'folke/which-key.nvim',
+    lazy = true,
+  },
   { 'akinsho/toggleterm.nvim',         version = "*",   config = true },
   { 'nvim-treesitter/nvim-treesitter', cmd = "TSUpdate" },
   {
@@ -112,5 +137,22 @@ return require('lazy').setup({
   'Rigellute/shades-of-purple.vim',
   'RaafatTurki/hex.nvim',
   "vrischmann/tree-sitter-templ",
-  "ThePrimeagen/lsp-debug-tools.nvim"
+  "ThePrimeagen/lsp-debug-tools.nvim",
+  {
+    "CodeGradox/onehalf-lush",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.api.nvim_set_option("background", "light")
+      vim.cmd("colorscheme onehalf-lush")
+    end
+  },
+  {
+    "itchyny/lightline.vim",
+    config = function()
+      vim.g.lightline = {
+        colorscheme = 'wombat',
+      }
+    end
+  }
 })
