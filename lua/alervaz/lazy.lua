@@ -34,12 +34,6 @@ return require('lazy').setup({
 
 
   -- Lualine
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons'
-    },
-  },
   -- Which-key
   {
     'folke/which-key.nvim',
@@ -143,16 +137,18 @@ return require('lazy').setup({
     lazy = false,
     priority = 1000,
     config = function()
-      vim.api.nvim_set_option("background", "light")
-      vim.cmd("colorscheme onehalf-lush")
+      vim.cmd([[
+        highlight Comment gui=NONE
+        highlight String gui=NONE
+        highlight Function gui=NONE
+      ]])
+      vim.api.nvim_command('highlight Comment cterm=NONE')
+      vim.api.nvim_command('highlight String gui=NONE')
+      vim.api.nvim_command('highlight Function gui=NONE')
     end
   },
   {
-    "itchyny/lightline.vim",
-    config = function()
-      vim.g.lightline = {
-        colorscheme = 'wombat',
-      }
-    end
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 })

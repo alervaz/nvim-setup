@@ -3,7 +3,7 @@ local filetypes = {
   'xml',
   'php',
   'markdown',
-  'astro', 'glimmer', 'handlebars', 'hbs', "templ", "gotempl", "heex"
+  'astro', 'glimmer', 'handlebars', 'hbs', "templ", "gotempl", "heex", "django"
 }
 
 require 'nvim-treesitter.configs'.setup {
@@ -13,5 +13,3 @@ require 'nvim-treesitter.configs'.setup {
     filetypes = filetypes,
   }
 }
-
-

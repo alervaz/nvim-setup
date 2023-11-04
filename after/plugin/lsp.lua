@@ -37,17 +37,17 @@ lsp.ensure_installed({
 })
 
 vim.filetype.add({
-    extension = {
-        templ = "templ",
-    },
+  extension = {
+    templ = "templ",
+  },
 })
-require'lspconfig'.templ.setup{}
+require 'lspconfig'.templ.setup {}
 
-require'lspconfig'.sqlls.setup{
-  cmd = {"sql-language-server", "up", "--method", "stdio"};
-  filetypes = {"sql", "mysql"};
-  root_dir = function() return vim.loop.cwd() end;
-}
+-- require 'lspconfig'.sqlls.setup {
+--   cmd = { "sql-language-server", "up", "--method", "stdio" },
+--   filetypes = { "sql", "mysql" },
+--   root_dir = function() return vim.loop.cwd() end,
+-- }
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
@@ -78,7 +78,7 @@ require('lspconfig').tsserver.setup({
 
 require 'lspconfig'.tailwindcss.setup {
   cmd = { "tailwindcss-language-server", "--stdio" },
-  filetypes = { "html", "templ", "go", "heex" },
+  filetypes = { "html", "templ", "go", "heex", "django" },
   root_dir = function() return vim.loop.cwd() end
 }
 require 'lspconfig'.html.setup {
@@ -96,6 +96,7 @@ require 'lspconfig'.emmet_language_server.setup {
   root_dir = function() return vim.loop.cwd() end
 }
 
+
 cmp.setup({
   sources = { { name = 'nvim_lsp' } },
   mapping = cmp.mapping.preset.insert({
@@ -103,7 +104,7 @@ cmp.setup({
   }),
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
 })
@@ -130,6 +131,20 @@ lsp.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
   lsp.default_keymaps({ buffer = bufnr })
   require('luasnip.loaders.from_vscode').load()
+
+  local s = luasnip.snippet
+  local t = luasnip.text_node
+  local i = luasnip.insert_node
+
+  luasnip.snippets = {
+    go = {
+      s('errh', {
+        t('if err != nil {'),
+        i(1),
+        t('}'),
+      }),
+    },
+  }
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -169,12 +184,13 @@ lsp.format_on_save({
     ['gopls'] = { 'go' },
     ['rust_analyzer'] = { 'rust' },
     ['tsserver'] = { "typescript", "javascript", "tsx", "jsx", "javascriptreact", "typescriptreact" },
-    ['templ'] = { 'templ' }
+    ['templ'] = { 'templ' },
+    ['lua_ls'] = { "lua" },
+    ['html'] = { "html" }
     -- ['prettier'] = { "jsx" },
     -- ['clang-format'] = { "c++", "cpp", "c" }
   }
 })
-
 
 
 lsp.setup()
