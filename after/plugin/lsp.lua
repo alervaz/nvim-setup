@@ -60,12 +60,20 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 
-require('lspconfig').tsserver.setup({
-  single_file_support = false,
-  on_init = function(client)
-    client.server_capabilities.semanticTokensProvider = nil
-  end,
-})
+-- require('lspconfig').tsserver.setup({
+--   single_file_support = false,
+--   on_init = function(client)
+--     client.server_capabilities.semanticTokensProvider = nil
+--   end,
+-- })
+--
+require("lspconfig").tsserver.setup {
+  settings = {
+    implicitProjectConfiguration = {
+      checkJs = true
+    },
+  }
+}
 
 -- require 'lspconfig'.unocss.setup {
 --   on_attach = on_attach,
@@ -76,11 +84,11 @@ require('lspconfig').tsserver.setup({
 --   end
 -- }
 
-require 'lspconfig'.tailwindcss.setup {
-  cmd = { "tailwindcss-language-server", "--stdio" },
-  filetypes = { "html", "templ", "go", "heex", "django" },
-  root_dir = function() return vim.loop.cwd() end
-}
+-- require 'lspconfig'.tailwindcss.setup {
+--   cmd = { "tailwindcss-language-server", "--stdio" },
+--   filetypes = { "html", "templ", "go", "heex", "django" },
+--   root_dir = function() return vim.loop.cwd() end
+-- }
 require 'lspconfig'.html.setup {
   cmd = { "vscode-html-language-server", "--stdio" },
   filetypes = { "html", "templ", "heex" },
@@ -181,32 +189,50 @@ lsp.format_on_save({
     timeout_ms = 10000,
   },
   servers = {
-    ['gopls'] = { 'go' },
     ['rust_analyzer'] = { 'rust' },
     ['tsserver'] = { "typescript", "javascript", "tsx", "jsx", "javascriptreact", "typescriptreact" },
     ['templ'] = { 'templ' },
     ['lua_ls'] = { "lua" },
-    ['html'] = { "html" }
-    -- ['prettier'] = { "jsx" },
-    -- ['clang-format'] = { "c++", "cpp", "c" }
+    ['html'] = { "html" },
+    ['null-ls'] = { "python", "go" },
+    ['elixirls'] = { "elixir" },
   }
 })
 
 
 lsp.setup()
 
+-- lsp.format_mapping('gq', {
+--   format_opts = {
+--     async = false,
+--     timeout_ms = 10000,
+--   },
+--   servers = {
+--     ['null-ls'] = { 'javascript', 'typescript', 'lua' },
+--   }
+-- })
+--
+-- lsp.setup()
+
+
+local null_ls = require('null-ls')
+local null_opts = lsp.build_options('null-ls', {})
+
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    null_opts.on_attach(client, bufnr)
+  end,
+  sources = {
+    null_ls.builtins.formatting.black,
+    null_ls.builtins.formatting.goimports,
+    null_ls.builtins.formatting.gofumpt,
+  }
+})
+
 vim.diagnostic.config({
   virtual_text = true
 })
 
-local function organize_imports()
-  local params = {
-    command = "_typescript.organizeImports",
-    arguments = { vim.api.nvim_buf_get_name(0) },
-    title = ""
-  }
-  vim.lsp.buf.execute_command(params)
-end
 
 vim.opt.fillchars:append { eob = " " }
 vim.cmd [[function! IndentWithI()

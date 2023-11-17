@@ -1,5 +1,5 @@
 local colors = {
-  bg     = "#181825",
+  bg     = "#1e1e2e",
   bg2    = '#181825',
   bg3    = '#1e1e2e',
   purple = '#c6a0f6',
@@ -47,4 +47,8 @@ local theme = {
     c = { bg = colors.bg, fg = colors.white }
   }
 }
-require('lualine').setup { options = { theme = theme } }
+require('lualine').setup {
+  options = {
+    theme = 'auto'
+  }
+}

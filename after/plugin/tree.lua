@@ -31,6 +31,12 @@ require 'nvim-web-devicons'.setup {
       color = "#f7e025"
     },
 
+    rs = {
+      icon = "",
+      color = "#ec8505",
+      name = "rust",
+    },
+
     kt = {
       icon = "󱈙",
       name = "kt",
@@ -154,6 +160,18 @@ require 'nvim-web-devicons'.setup {
       icon = "🗲",
       color = "#f6c322",
       name = "vite",
+    },
+
+    opam = {
+      icon = "",
+      color = "#ea6a18",
+      name = "opam"
+    },
+
+    ml = {
+      icon = "",
+      color = "#3175da",
+      name = "ocaml",
     }
   }
 }
@@ -178,31 +196,7 @@ require("nvim-tree").setup({
 })
 
 
-vim.opt.termguicolors = true
 
-vim.keymap.set('n', '<leader>tt', function()
+vim.keymap.set('n', '<C-b>', function()
   vim.cmd(":NvimTreeToggle")
 end)
-vim.keymap.set('n', '<leader>tf', function()
-  vim.cmd(":NvimTreeFocus")
-end)
-
-vim.g.nvim_tree_icons = {
-  default = "",
-  symlink = "",
-  git = {
-    unstaged = "✗",
-    staged = "✓",
-    unmerged = "",
-    renamed = "➜",
-    untracked = "★",
-    deleted = "",
-    ignored = "◌",
-  },
-  folder = {
-    default = "",
-    open = "",
-    symlink = "",
-  },
-
-}

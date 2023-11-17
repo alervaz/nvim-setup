@@ -35,10 +35,6 @@ return require('lazy').setup({
 
   -- Lualine
   -- Which-key
-  {
-    'folke/which-key.nvim',
-    lazy = true,
-  },
   { 'akinsho/toggleterm.nvim',         version = "*",   config = true },
   { 'nvim-treesitter/nvim-treesitter', cmd = "TSUpdate" },
   {
@@ -114,7 +110,7 @@ return require('lazy').setup({
     name = 'rose-pine',
     config = function()
       require('rose-pine').setup({ disable_italics = true })
-      vim.cmd('colorscheme rose-pine')
+      -- vim.cmd('colorscheme rose-pine')
     end
   },
   "theprimeagen/harpoon",
@@ -150,5 +146,85 @@ return require('lazy').setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
+  },
+  "lunarvim/horizon.nvim",
+  -- {
+  --   "tamton-aquib/staline.nvim",
+  --   dependencies = "nvim-tree/nvim-web-devicons",
+  --   event = { "User", "BufNewFile", "BufReadPost", },
+  --
+  --   keys = {
+  --     { "<leader>bn", "<cmd>ene<CR>", desc = "New buffer", },
+  --     { "<leader>bl", "<cmd>bn<CR>",  desc = "Next buffer", },
+  --     { "<leader>bh", "<cmd>bp<CR>",  desc = "Previous buffer", },
+  --     { "<leader>bd", "<cmd>bd<CR>",  desc = "Delete buffer", },
+  --   },
+  -- },
+  {
+    "goolord/alpha-nvim",
+    event = "VimEnter",
+
+    opts = function()
+      local dashboard = require("alpha.themes.dashboard")
+      local logo = [[
+                ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+                ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+                ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+                ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+                ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+                ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+            ]]
+
+      dashboard.section.header.val = vim.split(logo, "\n")
+      dashboard.section.buttons.val = {
+        dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files <CR>"),
+        dashboard.button("n", " " .. " New file", "<cmd>ene <BAR> startinsert <CR>"),
+        -- dashboard.button("r", " " .. " Suggested files", "<cmd>Telescope frecency <CR>"),
+        dashboard.button("g", " " .. " Find text", "<cmd>Telescope live_grep <CR>"),
+      }
+      return dashboard
+    end,
+
+    config = function(_, dashboard)
+      require("alpha").setup(dashboard.opts)
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyVimStarted",
+        callback = function()
+          local stats = require("lazy").stats()
+          local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
+          dashboard.section.footer.val = stats.count .. " plugins loaded in " .. ms .. "ms"
+          require("alpha").redraw()
+        end,
+      })
+    end,
+  },
+  {
+    "echasnovski/mini.indentscope",
+    event = { "BufReadPost", "BufNewFile", },
+    opts = {
+      symbol = "│",
+      options = { try_as_border = true },
+      show_current_context = true,
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "help", "alpha", "dashboard", "Trouble", "lazy", "mason" },
+        callback = function()
+          vim.b.miniindentscope_disable = true
+        end,
+      })
+    end,
+  },
+  "jose-elias-alvarez/null-ls.nvim",
+  {
+    'projekt0n/github-nvim-theme',
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require('github-theme').setup({
+        -- ...
+      })
+    end,
   }
 })
