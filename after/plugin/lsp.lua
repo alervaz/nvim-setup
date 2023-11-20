@@ -4,6 +4,12 @@ local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 local luasnip = require('luasnip')
 
+
+
+local cmdIcons = {
+  Variable = "CMD "
+}
+
 -- `:` cmdline setup.
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -16,10 +22,15 @@ cmp.setup.cmdline(':', {
         ignore_cmds = { 'Man', '!' }
       }
     }
-  })
+  }),
+  formatting = {
+    format = function(_, vim_item)
+      vim_item.kind = cmdIcons[vim_item.kind] or "FOO"
+      return vim_item
+    end
+  }
 })
--- `/` cmdline setup.
-cmp.setup.cmdline('/', {
+cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = 'buffer' }
@@ -42,6 +53,7 @@ vim.filetype.add({
   },
 })
 require 'lspconfig'.templ.setup {}
+require 'lspconfig'.eslint.setup {}
 
 -- require 'lspconfig'.sqlls.setup {
 --   cmd = { "sql-language-server", "up", "--method", "stdio" },
@@ -68,10 +80,10 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 -- })
 --
 require("lspconfig").tsserver.setup {
-  settings = {
-    implicitProjectConfiguration = {
-      checkJs = true
-    },
+  init_options = {
+    preferences = {
+      disableSuggestions = true,
+    }
   }
 }
 
@@ -86,16 +98,28 @@ require("lspconfig").tsserver.setup {
 
 -- require 'lspconfig'.tailwindcss.setup {
 --   cmd = { "tailwindcss-language-server", "--stdio" },
---   filetypes = { "html", "templ", "go", "heex", "django" },
+-- filetypes = { "html", "templ", "go", "heex", "django" },
 --   root_dir = function() return vim.loop.cwd() end
 -- }
+--
+
+require("lspconfig").tailwindcss.setup({
+  filetypes = {
+    'templ', "html", "templ", "go", "heex", "django"
+    -- include any other filetypes where you need tailwindcss
+  },
+  init_options = {
+    userLanguages = {
+      templ = "html"
+    }
+  }
+})
+
 require 'lspconfig'.html.setup {
   cmd = { "vscode-html-language-server", "--stdio" },
   filetypes = { "html", "templ", "heex" },
   root_dir = function() return vim.loop.cwd() end
 }
-
-
 
 
 require 'lspconfig'.emmet_language_server.setup {
@@ -105,17 +129,30 @@ require 'lspconfig'.emmet_language_server.setup {
 }
 
 
+
 cmp.setup({
   sources = { { name = 'nvim_lsp' } },
   mapping = cmp.mapping.preset.insert({
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
   },
+  formatting = {
+    format = function(_, vim_item)
+      vim_item.kind = icons[vim_item.kind] or "FOO"
+      return vim_item
+    end
+  }
 })
+
+
 
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
@@ -124,15 +161,16 @@ lsp.setup_nvim_cmp({
   mapping = cmp_mappings
 })
 
-lsp.set_preferences({
-  suggest_lsp_servers = false,
-  sign_icons = {
-    error = 'E',
-    warn = 'W',
-    hint = 'H',
-    info = 'I'
-  }
-})
+-- lsp.set_preferences({
+--   suggest_lsp_servers = false,
+--   sign_icons = {
+--     error = 'E',
+--     warn = 'W',
+--     hint = 'H',
+--     info = 'I'
+--   }
+-- })
+--
 
 
 lsp.on_attach(function(client, bufnr)
@@ -140,19 +178,6 @@ lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
   require('luasnip.loaders.from_vscode').load()
 
-  local s = luasnip.snippet
-  local t = luasnip.text_node
-  local i = luasnip.insert_node
-
-  luasnip.snippets = {
-    go = {
-      s('errh', {
-        t('if err != nil {'),
-        i(1),
-        t('}'),
-      }),
-    },
-  }
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -171,17 +196,6 @@ lsp.on_attach(function(client, bufnr)
     },
   })
 end)
--- local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
--- local lsp_format_on_save = function(bufnr)
---   vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
---   vim.api.nvim_create_autocmd('BufWritePre', {
---     group = augroup,
---     buffer = bufnr,
---     callback = function()
---       vim.lsp.buf.format()
---     end,
---   })
--- end
 
 lsp.format_on_save({
   format_opts = {
@@ -194,26 +208,20 @@ lsp.format_on_save({
     ['templ'] = { 'templ' },
     ['lua_ls'] = { "lua" },
     ['html'] = { "html" },
-    ['null-ls'] = { "python", "go" },
+    ['null-ls'] = { "python", "go", "javascript", "typescript" },
     ['elixirls'] = { "elixir" },
   }
 })
 
 
+lsp.set_sign_icons({
+  error = '✘',
+  warn = '▲',
+  hint = '⚑',
+  info = '»'
+})
+
 lsp.setup()
-
--- lsp.format_mapping('gq', {
---   format_opts = {
---     async = false,
---     timeout_ms = 10000,
---   },
---   servers = {
---     ['null-ls'] = { 'javascript', 'typescript', 'lua' },
---   }
--- })
---
--- lsp.setup()
-
 
 local null_ls = require('null-ls')
 local null_opts = lsp.build_options('null-ls', {})
@@ -226,6 +234,7 @@ null_ls.setup({
     null_ls.builtins.formatting.black,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.gofumpt,
+    null_ls.builtins.formatting.golines,
   }
 })
 

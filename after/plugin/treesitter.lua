@@ -2,7 +2,7 @@ local treesitter_parser_config = require "nvim-treesitter.parsers".get_parser_co
 treesitter_parser_config.templ = {
   install_info = {
     url = "https://github.com/vrischmann/tree-sitter-templ.git",
-    files = {"src/parser.c", "src/scanner.c"},
+    files = { "src/parser.c", "src/scanner.c" },
     branch = "master",
   },
 }
@@ -13,6 +13,17 @@ vim.treesitter.language.register('templ', 'templ')
 require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "typescript", "javascript" },
+
+  tree_docs = {
+    enable = true,
+    spec_config = {
+      jsdoc = {
+        slots = {
+          class = { author = true }
+        }
+      }
+    }
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -35,4 +46,3 @@ require 'nvim-treesitter.configs'.setup {
   },
 
 }
-
