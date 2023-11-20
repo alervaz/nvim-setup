@@ -5,9 +5,24 @@ local cmp_action = require('lsp-zero').cmp_action()
 local luasnip = require('luasnip')
 
 
+local icons = {
+  Class = "󰠱 CLASS ",
+  Snippet = " SNIPPET ",
+  Text = " TXT ",
+  Keyword = "󰌋 KEYWORD ",
+  Function = "󰊕 FN ",
+  Field = " FIELD ",
+  Variable = " VAR ",
+  Constructor = "󰒓 CONSTRUCTOR ",
+  Module = " MODULE ",
+  Method = " METHOD ",
+  Interface = "󰠱 INTERFACE "
+}
+
+
 
 local cmdIcons = {
-  Variable = "CMD "
+  Variable = " CMD "
 }
 
 -- `:` cmdline setup.
@@ -130,29 +145,6 @@ require 'lspconfig'.emmet_language_server.setup {
 
 
 
-cmp.setup({
-  sources = { { name = 'nvim_lsp' } },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-Space>'] = cmp.mapping.complete(),
-  }),
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  formatting = {
-    format = function(_, vim_item)
-      vim_item.kind = icons[vim_item.kind] or "FOO"
-      return vim_item
-    end
-  }
-})
-
-
 
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
@@ -189,11 +181,31 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
+
   cmp.setup({
+
     sources = {
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
     },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-Space>'] = cmp.mapping.complete(),
+    }),
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+    },
+    snippet = {
+      expand = function(args)
+        luasnip.lsp_expand(args.body)
+      end,
+    },
+    formatting = {
+      format = function(_, vim_item)
+        vim_item.kind = icons[vim_item.kind] or vim_item.kind
+        return vim_item
+      end
+    }
   })
 end)
 
