@@ -224,7 +224,13 @@ return require('lazy').setup({
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup({
-        -- ...
+        options = {
+          styles = {
+            comments = '',
+            keywords = 'bold',
+            types = 'bold',
+          }
+        }
       })
     end,
   },
