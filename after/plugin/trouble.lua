@@ -1,3 +1,3 @@
-vim.keymap.set("n", "<leader>\\", function()
+vim.keymap.set("n", "<C-\\>", function()
   vim.cmd("TroubleToggle")
 end)

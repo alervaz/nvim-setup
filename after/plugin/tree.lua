@@ -175,28 +175,28 @@ require 'nvim-web-devicons'.setup {
     }
   }
 }
-vim.g.nvim_tree_ignore = { '.git' }
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = false,
-    custom = { "^.git$" }
-  },
-  git = {
-    enable = true,
-    ignore = true,
-    timeout = 500,
-  },
-})
-
-
-
-vim.keymap.set('n', '<C-b>', function()
-  vim.cmd(":NvimTreeToggle")
-end)
+-- vim.g.nvim_tree_ignore = { '.git' }
+-- require("nvim-tree").setup({
+--   sort_by = "case_sensitive",
+--   view = {
+--     width = 30,
+--   },
+--   renderer = {
+--     group_empty = true,
+--   },
+--   filters = {
+--     dotfiles = false,
+--     custom = { "^.git$" }
+--   },
+--   git = {
+--     enable = true,
+--     ignore = true,
+--     timeout = 500,
+--   },
+-- })
+--
+--
+--
+-- vim.keymap.set('n', '<C-b>', function()
+--   vim.cmd(":NvimTreeToggle")
+-- end)

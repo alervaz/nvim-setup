@@ -1,8 +1,9 @@
 function ColorMe(color)
-  color = color or "github_dark_high_contrast"
+  color = color or "tokyonight-night"
   vim.cmd.colorscheme(color)
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  vim.o.laststatus = 3
 end
 
 ColorMe()

@@ -14,12 +14,12 @@ return require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   },
-  {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-    end
-  },
+  -- {
+  --   "nvim-tree/nvim-tree.lua",
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   config = function()
+  --   end
+  -- },
   {
     'akinsho/bufferline.nvim',
     dependencies = {
@@ -27,15 +27,13 @@ return require('lazy').setup({
     },
   },
   -- Hop (Better Navigation)
-  {
-    "phaazon/hop.nvim",
-    lazy = true,
-  },
+  -- {
+  --   "phaazon/hop.nvim",
+  --   lazy = true,
+  -- },
 
 
-  -- Lualine
-  -- Which-key
-  { 'akinsho/toggleterm.nvim',         version = "*",   config = true },
+  -- { 'akinsho/toggleterm.nvim',         version = "*",   config = true },
   { 'nvim-treesitter/nvim-treesitter', cmd = "TSUpdate" },
   {
     'VonHeikemen/lsp-zero.nvim',
