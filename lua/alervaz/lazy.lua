@@ -20,12 +20,12 @@ return require('lazy').setup({
   --   config = function()
   --   end
   -- },
-  {
-    'akinsho/bufferline.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons'
-    },
-  },
+  -- {
+  --   'akinsho/bufferline.nvim',
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons'
+  --   },
+  -- },
   -- Hop (Better Navigation)
   -- {
   --   "phaazon/hop.nvim",
@@ -71,7 +71,20 @@ return require('lazy').setup({
       require('nvim-autopairs').setup({})
     end
   },
-  'windwp/nvim-ts-autotag',
+  {
+    'windwp/nvim-ts-autotag',
+    -- ft = {
+    --   "javascript",
+    --   "javascriptreact",
+    --   "typescript",
+    --   "typescriptreact",
+    --   "html",
+    --   "templ",
+    -- },
+    config = function()
+      require("nvim-ts-autotag").setup {}
+    end
+  },
   "mbbill/undotree",
   "theprimeagen/vim-be-good",
   "tpope/vim-fugitive",
@@ -128,7 +141,7 @@ return require('lazy').setup({
   "vrischmann/tree-sitter-templ",
   "ThePrimeagen/lsp-debug-tools.nvim",
   {
-    "CodeGradox/onehalf-lush",
+    "sonph/onehalf-lush",
     lazy = false,
     priority = 1000,
     config = function()
@@ -166,12 +179,12 @@ return require('lazy').setup({
     opts = function()
       local dashboard = require("alpha.themes.dashboard")
       local logo = [[
-                ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-                ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-                ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-                ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-                ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-                ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
             ]]
 
       dashboard.section.header.val = vim.split(logo, "\n")
@@ -179,7 +192,8 @@ return require('lazy').setup({
         dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files <CR>"),
         dashboard.button("n", " " .. " New file", "<cmd>ene <BAR> startinsert <CR>"),
         -- dashboard.button("r", " " .. " Suggested files", "<cmd>Telescope frecency <CR>"),
-        dashboard.button("g", " " .. " Find text", "<cmd>Telescope live_grep <CR>"),
+        dashboard.button("s", " " .. " Find text", "<cmd>Telescope live_grep <CR>"),
+        dashboard.button("g", " " .. " Git files", "<cmd>Telescope live_grep <CR>"),
       }
       return dashboard
     end,
@@ -215,7 +229,7 @@ return require('lazy').setup({
       })
     end,
   },
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   {
     'projekt0n/github-nvim-theme',
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
@@ -293,5 +307,8 @@ return require('lazy').setup({
     opts = {},
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
+    "elkowar/yuck.vim"
   },
 })
