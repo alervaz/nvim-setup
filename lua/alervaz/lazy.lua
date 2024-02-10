@@ -140,21 +140,21 @@ return require('lazy').setup({
   'RaafatTurki/hex.nvim',
   "vrischmann/tree-sitter-templ",
   "ThePrimeagen/lsp-debug-tools.nvim",
-  {
-    "sonph/onehalf-lush",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd([[
-        highlight Comment gui=NONE
-        highlight String gui=NONE
-        highlight Function gui=NONE
-      ]])
-      vim.api.nvim_command('highlight Comment cterm=NONE')
-      vim.api.nvim_command('highlight String gui=NONE')
-      vim.api.nvim_command('highlight Function gui=NONE')
-    end
-  },
+  -- {
+  --   "sonph/onehalf-lush",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd([[
+  --       highlight Comment gui=NONE
+  --       highlight String gui=NONE
+  --       highlight Function gui=NONE
+  --     ]])
+  --     vim.api.nvim_command('highlight Comment cterm=NONE')
+  --     vim.api.nvim_command('highlight String gui=NONE')
+  --     vim.api.nvim_command('highlight Function gui=NONE')
+  --   end
+  -- },
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
