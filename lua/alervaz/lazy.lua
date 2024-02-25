@@ -311,4 +311,5 @@ return require('lazy').setup({
   {
     "elkowar/yuck.vim"
   },
+  'luk400/vim-jukit'
 })
