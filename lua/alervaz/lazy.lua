@@ -311,5 +311,16 @@ return require('lazy').setup({
   {
     "elkowar/yuck.vim"
   },
-  'luk400/vim-jukit'
+  {
+    "S1M0N38/love2d.nvim",
+    cmd = "LoveRun",
+    opts = {},
+    keys = {
+      { "<leader>v",  desc = "LÖVE" },
+      { "<leader>vr", "<cmd>LoveRun<cr>",  desc = "Run LÖVE" },
+      { "<leader>vs", "<cmd>LoveStop<cr>", desc = "Stop LÖVE" },
+    },
+  },
+  -- 'luk400/vim-jukit'
+  'lommix/godot.nvim'
 })
