@@ -4,6 +4,8 @@ local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 local ls = require('luasnip')
 
+vim.lsp.set_log_level("debug")
+
 
 local icons = {
   Class = "󰠱 CLASS ",
@@ -82,6 +84,10 @@ require 'lspconfig'.gdscript.setup {
   end
 }
 
+require('lspconfig').gleam.setup({})
+require('lspconfig').zls.setup({
+  cmd = { "zls" },
+})
 -- require 'lspconfig'.sqlls.setup {
 --   cmd = { "sql-language-server", "up", "--method", "stdio" },
 --   filetypes = { "sql", "mysql" },
@@ -106,13 +112,13 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 --   end,
 -- })
 --
-require("lspconfig").tsserver.setup {
-  init_options = {
-    preferences = {
-      disableSuggestions = true,
-    }
-  }
-}
+-- require("lspconfig").tsserver.setup {
+--   init_options = {
+--     preferences = {
+--       disableSuggestions = true,
+--     }
+--   }
+-- }
 
 -- require 'lspconfig'.unocss.setup {
 --   on_attach = on_attach,
@@ -132,7 +138,7 @@ require("lspconfig").tsserver.setup {
 
 require("lspconfig").tailwindcss.setup({
   filetypes = {
-    'templ', "html", "templ", "go", "heex", "django"
+    'templ', "html", "templ", "go", "heex", "django", "gleam"
     -- include any other filetypes where you need tailwindcss
   },
   init_options = {
@@ -159,7 +165,7 @@ require 'lspconfig'.emmet_language_server.setup {
 
 
 cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
+-- cmp_mappings['<S-Tab>'] = nil
 
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings
@@ -175,6 +181,21 @@ lsp.setup_nvim_cmp({
 --   }
 -- })
 --
+
+vim.keymap.set({ "i", "s" }, "<Tab>",
+  function()
+    if ls.expand_or_jumpable() then
+      ls.expand_or_jump()
+      print("Jumpable")
+    else
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+    end
+  end,
+  { silent = true })
+
+vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+  return require("luasnip").jump(-1)
+end, { expr = true })
 
 
 lsp.on_attach(function(client, bufnr)
@@ -232,7 +253,7 @@ lsp.format_on_save({
   },
   servers = {
     ['rust_analyzer'] = { 'rust' },
-    ['tsserver'] = { "typescript", "javascript", "tsx", "jsx", "javascriptreact", "typescriptreact" },
+    -- ['tsserver'] = { "typescript", "javascript", "tsx", "jsx", "javascriptreact", "typescriptreact" },
     ['templ'] = { 'templ' },
     ['lua_ls'] = { "lua" },
     ['html'] = { "html" },

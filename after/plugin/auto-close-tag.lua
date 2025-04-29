@@ -6,7 +6,7 @@ local filetypes = {
   'astro', 'glimmer', 'handlebars', 'hbs', "templ", "gotempl", "heex", "django"
 }
 
-require 'nvim-treesitter.configs'.setup {
+require 'nvim-ts-autotag'.setup {
   autotag = {
     enable = true,
     enable_rename = true,
